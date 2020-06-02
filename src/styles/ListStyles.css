@@ -6,10 +6,12 @@
   position: relative;
   margin-bottom: 5px;
 }
+
 .list-background:hover {
   transition-delay: 0.1s;
   background-color: #87ceeb;
 }
+
 .list__items {
   font-family: "Roboto Slab", serif;
   display: inline-block;

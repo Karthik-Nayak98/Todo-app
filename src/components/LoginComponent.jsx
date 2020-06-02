@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+import SignUp from "./SignUpComponent";
+import { Route } from "react-router-dom";
 import "../styles/LoginStyles.css";
 
 class Login extends Component {
+  handleSubmit = () => {
+    this.props.history.push("/signup");
+  };
+
   render() {
     return (
       <div className="box">
@@ -21,9 +27,12 @@ class Login extends Component {
             Login
           </button>
         </form>
-        <span>
-          Don't have an Account?
-          <button className="sign-up">Sign Up</button>
+        <span className="">
+          Don't have an Account?&nbsp;&nbsp;
+          <button onClick={this.handleSubmit} className="sign-up">
+            Sign Up
+          </button>
+          <Route exact path="/signup" component={SignUp} />
         </span>
       </div>
     );

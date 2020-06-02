@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { List } from "./ListComponent";
+import firebase from "firebase/app";
+import "firebase/database";
+import "../config/firebase.utils";
 import "../styles/MainStyles.css";
 
 class Main extends Component {
@@ -9,46 +12,70 @@ class Main extends Component {
     this.state = {
       tasks: [],
       count: 0,
-      currentTask: {
-        id: "",
-        value: "",
-      },
+      currentTask: "",
     };
+
+    this.database = firebase.database().ref().child("task");
+    this.db = firebase.database().ref().child("taskCount");
+  }
+
+  componentDidMount() {
+    let previousTasks = this.state.tasks;
+
+    this.db.on("value", (snapshot) => {
+      const taskCount = snapshot.exists() ? snapshot.val().count : 0;
+      this.setState({ count: taskCount });
+    });
+
+    this.database.on("child_added", (snapshot) => {
+      previousTasks.push({
+        id: snapshot.key,
+        value: snapshot.val().task,
+      });
+
+      this.setState({
+        tasks: previousTasks,
+      });
+    });
+
+    this.database.on("child_removed", (snapshot) => {
+      const filteredArray = previousTasks.filter((item) => {
+        return item.id !== snapshot.key;
+      });
+      this.setState({ tasks: filteredArray });
+      previousTasks = filteredArray; // to update the previous array after removing the item
+    });
   }
 
   handleChange = (event) => {
     event.persist();
     this.setState({
-      currentTask: {
-        id: Date.now(),
-        value: event.target.value,
-        completed: false,
-      },
+      currentTask: event.target.value,
     });
   };
 
   addItem = (event) => {
     event.preventDefault();
 
-    let newArray = this.state.tasks;
-    newArray.push(this.state.currentTask);
+    this.database.push().set({
+      task: this.state.currentTask,
+    });
+
+    this.db.update({
+      count: this.state.count,
+    });
 
     this.setState((prevState, prevProps) => ({
-      tasks: newArray,
-      count: prevState.count + prevProps.increment,
-      currentTask: {
-        value: "",
-      },
+      currentTask: "",
+      count: this.state.count + 1,
     }));
   };
 
   deleteTask = (itemId) => {
-    let newArray = this.state.tasks.filter((item) => item.id !== itemId);
+    this.database.child(itemId).remove();
+    this.db.update({ count: this.state.count - 1 });
 
-    this.setState((prevState, prevProps) => ({
-      tasks: newArray,
-      count: prevState.count - prevProps.increment,
-    }));
+    this.setState({ count: this.state.count - 1 });
   };
 
   render() {
@@ -56,18 +83,18 @@ class Main extends Component {
       <div className="row">
         <div className="column">
           <div className="card">
+            <h1 className="card-header">Todo List App</h1>
             <form className="todo-form" onSubmit={this.addItem}>
-              <h1 className="card-header">Todo List App</h1>
-              <hr />
-              <input
-                className="todo-input"
-                type="text"
-                placeholder="&#xf022; Add your Todo"
-                value={this.state.currentTask.value}
-                onChange={this.handleChange}
-                required="Enter a todo"
-              />
-
+              <div className="inputbox">
+                <input
+                  className="input-title"
+                  type="text"
+                  value={this.state.currentTask}
+                  onChange={this.handleChange}
+                  required
+                />
+                <label>Enter task</label>
+              </div>
               <button className="todo__button" type="submit">
                 Add Task
               </button>

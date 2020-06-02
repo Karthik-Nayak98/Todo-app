@@ -11,8 +11,9 @@
 }
 
 .box__header {
-  text-align: center;
+  position: relative;
   color: blue;
+  text-align: left;
   text-transform: uppercase;
 }
 
@@ -26,7 +27,9 @@
   font-size: 16px;
   margin-bottom: 30px;
   border: none;
+  /* border: 2px solid blue; */
   border-bottom: 1px solid black;
+  /* border-radius: 4px; */
   outline: none;
   background: transparent;
 }
@@ -51,9 +54,7 @@
   top: -20px;
   left: 0;
   font-size: 13px;
-  font-weight: 700;
   color: blue;
-  text-transform: lowercase;
 }
 
 .submit-button {
@@ -65,8 +66,22 @@
   font-size: 16px;
   border-radius: 5px;
   background: blue;
+  margin-bottom: 10px;
 }
 
+.box span {
+  font-size: 14px;
+  color: palevioletred;
+}
+.box span .sign-up {
+  border: none;
+  font-size: 16px;
+  outline: none;
+  background: white;
+}
+.box span .sign-up:hover {
+  color: red;
+}
 @media all and (max-width: 600px) {
   .box {
     width: 90%;
