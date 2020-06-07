@@ -4,11 +4,16 @@ import "../styles/ListStyles.css";
 export const List = (props) =>
   props.tasks.map((item) => (
     <div className="list-background" key={item.id}>
-      <p className="list__items">
+      <p
+        className="list__items"
+        onClick={() => {
+          props.EditItem(item.id);
+        }}
+      >
         <strong> {item.value}</strong>
       </p>
       <i
-        className="fa fa-trash fa-lg list__delete-icon"
+        className="fa fa-times list__delete-icon"
         onClick={() => props.deleteItem(item.id)}
       />
     </div>
