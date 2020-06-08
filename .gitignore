@@ -8,11 +8,10 @@
 # testing
 /coverage
 
-#hide api keys
-.env
-
 # production
 /build
+
+.vscode 
 
 # misc
 .DS_Store

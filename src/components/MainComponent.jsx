@@ -11,17 +11,25 @@ class Main extends Component {
       tasks: [],
       count: 0,
       currentTask: "",
-      userName: "",
+      username: "",
     };
-    const uid = auth().currentUser.uid;
-    console.log(auth().currentUser);
-    this.database = database().ref(`users/${uid}`).child("task");
-    this.db = database().ref(`users/${uid}`).child("taskCount");
+    const uid = auth.currentUser.uid;
+    this.database = database.ref(`users/${uid}`).child("task");
+    this.db = database.ref(`users/${uid}`).child("taskCount");
   }
 
   componentDidMount() {
     let previousTasks = this.state.tasks;
-    console.log(auth().currentUser);
+    const userId = auth.currentUser.uid;
+    database
+      .ref("users/" + userId)
+      .once("value")
+      .then((snapshot) => {
+        const username =
+          (snapshot.val() && snapshot.val().username) || "Anonymous";
+        this.setState({ username: username });
+      });
+
     this.db.on("value", (snapshot) => {
       const taskCount = snapshot.exists() ? snapshot.val().count : 0;
       this.setState({ count: taskCount });
@@ -83,7 +91,7 @@ class Main extends Component {
   };
 
   logout = () => {
-    auth().signOut();
+    auth.signOut();
   };
 
   render() {
@@ -91,9 +99,9 @@ class Main extends Component {
       <div className="container">
         <div className="column">
           <nav>
-            <h3 className="display-name">
-              Logged in as: {this.props.currentuser}
-            </h3>
+            <p className="display-name">
+              Logged in as: <span>{this.state.username}</span>
+            </p>
             <button onClick={this.logout} className="logout">
               <i className="fa fa-sign-out"></i> Logout
             </button>
@@ -125,7 +133,7 @@ class Main extends Component {
                 Nothing Left to do!! Enjoy your day
               </h1>
             ) : (
-              <h1 className="card-header">{this.state.count} Things to do</h1>
+              <h1 className="card-header">{this.state.count} Task to finish</h1>
             )}
 
             <List

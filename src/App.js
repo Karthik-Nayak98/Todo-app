@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Main from "./components/MainComponent";
 import Login from "./components/LoginComponent";
 import SignUp from "./components/SignUpComponent";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { auth } from "./config/firebase.utils";
 import PrivateRoute from "./helpers/PrivateRoute";
 
@@ -18,11 +18,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       user
         ? this.setState({
             authenticated: true,
-            currentuser: user,
+            currentuser: user.providerData[0],
             loading: false,
           })
         : this.setState({
@@ -45,8 +45,9 @@ class App extends Component {
           authenticated={this.state.authenticated}
           component={Main}
         />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />} />
+        <Route exact path="/signup" component={SignUp} />
+        <Redirect to="/login" />
       </Switch>
     );
   }

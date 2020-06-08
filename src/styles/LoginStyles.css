@@ -12,9 +12,17 @@
 
 .box__header {
   position: relative;
+  top: -15px;
   color: blue;
   text-align: left;
-  text-transform: uppercase;
+}
+
+.box span.validation-error {
+  position: absolute;
+  top: 30px;
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
 }
 
 .box .inputbox {
@@ -28,7 +36,6 @@
   margin-bottom: 30px;
   border: none;
   border: 2px solid lightblue;
-  /* border-bottom: 1px solid black; */
   border-radius: 4px;
   outline: none;
   background: transparent;
@@ -80,7 +87,7 @@
   cursor: pointer;
 }
 
-.box span {
+.box span.page-change {
   font-size: 14px;
   color: palevioletred;
 }
@@ -90,6 +97,15 @@
   font-size: 16px;
   outline: none;
   background: white;
+}
+.error {
+  border: 2px solid red;
+}
+.inputbox .errors {
+  color: red;
+  position: absolute;
+  top: 45px;
+  font-size: 13px;
 }
 
 .box span .sign-up:hover {
