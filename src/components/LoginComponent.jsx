@@ -21,18 +21,13 @@ class Login extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const user = await auth.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
         this.state.email,
         this.state.password
       );
       this.props.history.push("/todo");
     } catch (err) {
-      this.setState({
-        error: true,
-        email: "",
-        password: "",
-        touched: { email: false, password: false },
-      });
+      this.setState({ ...INITIAL_STATE, error: true });
     }
   };
 

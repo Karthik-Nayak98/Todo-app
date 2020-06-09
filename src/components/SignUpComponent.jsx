@@ -31,16 +31,9 @@ class SignUp extends Component {
       this.database = database
         .ref(`users/${resp.user.uid}`)
         .set({ username: this.state.username });
-      this.setState({ ...INITIAL_STATE });
       this.props.history.push("/login");
     } catch (err) {
-      this.setState({
-        error: true,
-        username: "",
-        email: "",
-        password: "",
-        touched: { username: false, email: false, password: false },
-      });
+      this.setState({ ...INITIAL_STATE, error: true });
     }
   };
 
