@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { auth, database } from "../config/firebase.utils";
+import Spinner from "react-spinner-material";
 import "../styles/LoginStyles.css";
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
     email: false,
     password: false,
   },
+  loading: false,
 };
 
 class SignUp extends Component {
@@ -23,6 +25,7 @@ class SignUp extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    this.setState({ loading: true });
     try {
       const resp = await auth.createUserWithEmailAndPassword(
         this.state.email,
@@ -33,7 +36,7 @@ class SignUp extends Component {
         .set({ username: this.state.username });
       this.props.history.push("/login");
     } catch (err) {
-      this.setState({ ...INITIAL_STATE, error: true });
+      this.setState({ ...INITIAL_STATE, loading: false, error: true });
     }
   };
 
@@ -130,10 +133,27 @@ class SignUp extends Component {
             <label>Password</label>
             <span className="errors">{errors.password}</span>
           </div>
-          <button className="submit-button" type="submit" value="SignUp">
+          <button
+            className={
+              this.state.loading ? "submit-button loading" : "submit-button"
+            }
+            type="submit"
+            value="SignUp"
+          >
             SignUp
+            <span className="login-loader signup-loader">
+              {this.state.loading && (
+                <Spinner
+                  radius={30}
+                  color={"#fc6c85"}
+                  stroke={4}
+                  visible={true}
+                />
+              )}
+            </span>
           </button>
         </form>
+
         <span className="page-change">
           Already have an Account?&nbsp;&nbsp;
           <Link to="/login">Login</Link>

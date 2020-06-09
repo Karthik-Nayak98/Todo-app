@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Main from "./components/MainComponent";
 import Login from "./components/LoginComponent";
+import Spinner from "react-spinner-material";
 import SignUp from "./components/SignUpComponent";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { auth } from "./config/firebase.utils";
 import PrivateRoute from "./helpers/PrivateRoute";
+import "./index.css";
 
 class App extends Component {
   constructor(props) {
@@ -35,8 +37,8 @@ class App extends Component {
 
   render() {
     return this.state.loading ? (
-      <div>
-        <h2>Loading...</h2>
+      <div className="loader">
+        <Spinner radius={70} color={"#fc6c85"} stroke={5} visible={true} />
       </div>
     ) : (
       <Switch>

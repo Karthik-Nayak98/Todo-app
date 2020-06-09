@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../config/firebase.utils";
+import Spinner from "react-spinner-material";
 import "../styles/LoginStyles.css";
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
     email: false,
     password: false,
   },
+  loading: false,
 };
 class Login extends Component {
   constructor(props) {
@@ -20,14 +22,16 @@ class Login extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    this.setState({ loading: true });
     try {
       await auth.signInWithEmailAndPassword(
         this.state.email,
         this.state.password
       );
+      // this.setState({ ...INITIAL_STATE, loading: false });
       this.props.history.push("/todo");
     } catch (err) {
-      this.setState({ ...INITIAL_STATE, error: true });
+      this.setState({ ...INITIAL_STATE, loading: false, error: true });
     }
   };
 
@@ -100,10 +104,27 @@ class Login extends Component {
             <label>Password</label>
             <span className="errors">{errors.password}</span>
           </div>
-          <button className="submit-button" type="submit" value="Login">
+          <button
+            className={
+              this.state.loading ? "submit-button loading" : "submit-button"
+            }
+            type="submit"
+            value="Login"
+          >
             Login
+            <span className="login-loader">
+              {this.state.loading && (
+                <Spinner
+                  radius={30}
+                  color={"#fc6c85"}
+                  stroke={4}
+                  visible={true}
+                />
+              )}
+            </span>
           </button>
         </form>
+
         <span className="page-change">
           Don't have an Account?&nbsp;&nbsp;
           <Link to="/signup">SignUp</Link>

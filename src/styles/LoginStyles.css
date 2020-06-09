@@ -111,7 +111,19 @@
 .box span .sign-up:hover {
   color: red;
 }
+span.login-loader {
+  position: absolute;
+  right: 50%;
+  top: 74%;
+  align-items: center;
+}
+span.signup-loader {
+  top: 78%;
+}
 
+.loading {
+  opacity: 0.6;
+}
 @media all and (max-width: 600px) {
   .box {
     width: 90%;

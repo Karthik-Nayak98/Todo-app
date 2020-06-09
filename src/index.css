@@ -19,3 +19,11 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  color: pink;
+  transform: translate(-50%, -50%);
+}
