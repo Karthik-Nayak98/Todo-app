@@ -47,7 +47,7 @@ class App extends Component {
           authenticated={this.state.authenticated}
           component={Main}
         />
-        <Route exact path="/login" component={Login} />} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={SignUp} />
         <Redirect to="/login" />
       </Switch>

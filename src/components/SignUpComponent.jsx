@@ -34,7 +34,7 @@ class SignUp extends Component {
       this.database = database
         .ref(`users/${resp.user.uid}`)
         .set({ username: this.state.username });
-      this.props.history.push("/login");
+      this.props.history.push("/todo");
     } catch (err) {
       this.setState({ ...INITIAL_STATE, loading: false, error: true });
     }
@@ -109,7 +109,7 @@ class SignUp extends Component {
           <div className="inputbox">
             <input
               type="text"
-              className="email"
+              className="mail"
               name="email"
               onBlur={this.handleBlur("email")}
               value={this.state.email}
@@ -123,7 +123,7 @@ class SignUp extends Component {
           <div className="inputbox">
             <input
               type="password"
-              className="password"
+              className="pass"
               name="password"
               onBlur={this.handleBlur("password")}
               value={this.state.password}
@@ -142,14 +142,14 @@ class SignUp extends Component {
           >
             SignUp
             <span className="login-loader signup-loader">
-              {this.state.loading && (
+              {
                 <Spinner
                   radius={30}
                   color={"#fc6c85"}
                   stroke={4}
-                  visible={true}
+                  visible={this.state.loading}
                 />
-              )}
+              }
             </span>
           </button>
         </form>

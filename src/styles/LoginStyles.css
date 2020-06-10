@@ -27,11 +27,12 @@
 
 .box .inputbox {
   position: relative;
+  margin-right: 4px;
 }
 
 .box .inputbox input {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 0px;
   font-size: 16px;
   margin-bottom: 30px;
   border: none;
@@ -98,8 +99,11 @@
   outline: none;
   background: white;
 }
-.error {
-  border: 2px solid red;
+
+input.mail,
+input.pass,
+input.username {
+  padding-left: 4px !important;
 }
 .inputbox .errors {
   color: red;

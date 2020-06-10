@@ -80,8 +80,9 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="inputbox">
             <input
+              // style={{ paddingLeft: "4px" }}
               type="text"
-              className={errors.email.length ? "email" : "error email"}
+              className="mail"
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
@@ -94,7 +95,7 @@ class Login extends Component {
           <div className="inputbox">
             <input
               type="password"
-              className={errors.password ? "error password" : "password"}
+              className="pass"
               name="password"
               value={this.state.password}
               onChange={this.handleChange}
@@ -113,14 +114,14 @@ class Login extends Component {
           >
             Login
             <span className="login-loader">
-              {this.state.loading && (
+              {
                 <Spinner
                   radius={30}
                   color={"#fc6c85"}
                   stroke={4}
-                  visible={true}
+                  visible={this.state.loading}
                 />
-              )}
+              }
             </span>
           </button>
         </form>
