@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE;
+    this.state = { ...INITIAL_STATE };
   }
 
   handleSubmit = async (event) => {
@@ -31,9 +31,9 @@ class SignUp extends Component {
         this.state.email,
         this.state.password
       );
-      this.database = database
-        .ref(`users/${resp.user.uid}`)
-        .set({ username: this.state.username });
+      this.database = database.ref(`users/${resp.user.uid}`).set({
+        username: this.state.username,
+      });
       this.props.history.push("/todo");
     } catch (err) {
       this.setState({ ...INITIAL_STATE, loading: false, error: true });

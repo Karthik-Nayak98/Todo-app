@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE;
+    this.state = { ...INITIAL_STATE };
   }
 
   handleSubmit = async (event) => {
