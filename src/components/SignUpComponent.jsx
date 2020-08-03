@@ -27,6 +27,7 @@ class SignUp extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     try {
+      // await auth().setPersistence(auth.Auth.Persistence.SESSION);
       const resp = await auth.createUserWithEmailAndPassword(
         this.state.email,
         this.state.password

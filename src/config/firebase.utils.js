@@ -13,7 +13,9 @@ const DB_CONFIG = {
   measurementId: "G-KVNZJWDRBQ",
 };
 
-firebase.initializeApp(DB_CONFIG);
+const app = firebase.initializeApp(DB_CONFIG);
+app.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
+export { app };
 export const auth = firebase.auth();
 export const database = firebase.database();

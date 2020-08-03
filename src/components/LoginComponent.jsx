@@ -24,6 +24,7 @@ class Login extends Component {
     event.preventDefault();
     this.setState({ loading: true });
     try {
+      // await auth().setPersistence(auth.Auth.Persistence.SESSION);
       await auth.signInWithEmailAndPassword(
         this.state.email,
         this.state.password
