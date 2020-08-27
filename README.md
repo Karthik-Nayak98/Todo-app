@@ -11,6 +11,6 @@ This todo app is built using **React.js** and **Firebase** which helps to store 
 
 # Demo
 
-![Demo](public/todo-app.gif)
+![Demo](https://github.com/KarthikNayak024/Todo-app/blob/master/public/todo-app.gif)
 
 You can find the todo-app live [here](https://karthiknayak024.github.io/Todo-app)
