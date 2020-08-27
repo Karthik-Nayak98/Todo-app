@@ -7,7 +7,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { auth } from "./config/firebase.utils";
 import PrivateRoute from "./helpers/PrivateRoute";
 import "./index.css";
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,20 +17,20 @@ class App extends Component {
       loading: true,
     };
   }
-
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
+
       user
         ? this.setState({
-            authenticated: true,
-            currentuser: user.providerData[0],
-            loading: false,
-          })
+          authenticated: true,
+          currentuser: user.providerData[0],
+          loading: false,
+        })
         : this.setState({
-            authenticated: false,
-            currentuser: null,
-            loading: false,
-          });
+          authenticated: false,
+          currentuser: null,
+          loading: false,
+        });
     });
   }
 
@@ -41,17 +40,17 @@ class App extends Component {
         <Spinner radius={70} color={"#fc6c85"} stroke={5} visible={true} />
       </div>
     ) : (
-      <Switch>
-        <PrivateRoute
-          path="/todo"
-          authenticated={this.state.authenticated}
-          component={Main}
-        />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-        <Redirect to="/login" />
-      </Switch>
-    );
+        <Switch>
+          <PrivateRoute
+            path="/todo"
+            authenticated={this.state.authenticated}
+            component={Main}
+          />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Redirect to="/login" />
+        </Switch>
+      );
   }
 }
 
