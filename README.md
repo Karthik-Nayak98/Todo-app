@@ -4,12 +4,12 @@ This todo app is built using **React.js** and **Firebase** which helps to store 
 
 # Installation
 
-- Clone the repository `https://github.com/KarthikNayak024/Todo-app.git`
+- Clone the repository `https://github.com/Karthik-Nayak98/Todo-app.git`
 - Install npm dependencies `npm install`
 - Start development server locally `npm start`
 
 # Demo
 
-![Demo](https://github.com/KarthikNayak024/Todo-app/blob/master/public/todo-app.gif)
+![Demo](https://github.com/Karthik-Nayak98/Todo-app/blob/master/public/todo-app.gif)
 
-You can find the todo-app live [here](https://karthiknayak024.github.io/Todo-app)
+You can find the todo-app live [here](https://karthik-nayak98.github.io/Todo-app)
